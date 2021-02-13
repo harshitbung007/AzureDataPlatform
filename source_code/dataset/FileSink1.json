@@ -1,5 +1,5 @@
 {
-	"name": "FileSink",
+	"name": "FileSink1",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureBlobStorage",
@@ -10,10 +10,6 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": {
-					"value": "transactions_@dayOfMonth(\"DD-MM-YYYY\")",
-					"type": "Expression"
-				},
 				"folderPath": "source/sales",
 				"container": "container"
 			},
