@@ -21,8 +21,12 @@
 					"name": "sink1"
 				}
 			],
-			"transformations": [],
-			"script": "source(output(\n\t\ttransaction_id as string,\n\t\tcust_id as string,\n\t\ttran_date as string,\n\t\tprod_subcat_code as string,\n\t\tprod_cat_code as string,\n\t\tQty as string,\n\t\tRate as string,\n\t\tTax as string,\n\t\ttotal_amt as string,\n\t\tStore_type as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tpartitionBy('hash', 1)) ~> source\nsource sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\trowUrlColumn:'tran_date',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1"
+			"transformations": [
+				{
+					"name": "Filter1"
+				}
+			],
+			"script": "source(output(\n\t\ttransaction_id as string,\n\t\tcust_id as string,\n\t\ttran_date as string,\n\t\tprod_subcat_code as string,\n\t\tprod_cat_code as string,\n\t\tQty as string,\n\t\tRate as string,\n\t\tTax as string,\n\t\ttotal_amt as string,\n\t\tStore_type as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tpartitionBy('hash', 1)) ~> source\nsource filter(tran_date==\"2014-02-13\") ~> Filter1\nFilter1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\trowUrlColumn:'tran_date',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1"
 		}
 	}
 }
